@@ -116,9 +116,9 @@ stopGameButton.onclick = function () {
 /***/ (function(module, exports) {
 
 module.exports = {
-  draw(circleObj, context) {
+  draw({x, y, radius}, context) {
     context.beginPath()
-    context.arc(circleObj.x, circleObj.y, circleObj.radius, 0, 2*Math.PI)
+    context.arc(x, y, radius, 0, 2*Math.PI)
     context.fillStyle = '#000'
     context.fill()
     context.closePath()
@@ -132,20 +132,20 @@ module.exports = {
 const distanceBetween = __webpack_require__(3)
 
 module.exports = {
-  draw(num, context, arrPoints, circle) {
+  draw(num, context, arrPoints, {x, y, radius}) {
     // 新绘制的图形在已存在的图形上面
     context.globalCompositeOperation = 'source-over'
 
     while(arrPoints.length < num) {
       // 随机生成一个点，该点要在大圆的外接正方形范围内
       let obj = {
-        x: Math.round( Math.random() * 2*circle.radius + (circle.x-circle.radius) ),
-        y: Math.round( Math.random() * 2*circle.radius + (circle.y-circle.radius) ),
+        x: Math.round( Math.random() * 2*radius + (x-radius) ),
+        y: Math.round( Math.random() * 2*radius + (y-radius) ),
         r: 4
       }
 
       // 只有符合生成的点在圆内才放入数组中
-      if (distanceBetween.distance(obj.x, obj.y, circle.x, circle.y)+obj.r < circle.radius) {
+      if (distanceBetween.distance(obj.x, obj.y, x, y)+obj.r < radius) {
 
         arrPoints.push(obj)
 
